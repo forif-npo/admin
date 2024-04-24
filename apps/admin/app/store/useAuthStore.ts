@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { User } from "@repo/types/src/user";
 import { create } from "zustand";
 export interface AuthState {
@@ -5,12 +6,13 @@ export interface AuthState {
 }
 
 export interface AuthAction {
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
 }
 
-export const useStore = create<AuthState & AuthAction>((set) => ({
+export const useAuthStore = create<AuthState & AuthAction>((set) => ({
   user: null,
-  setUser: (user: User) => {
+  accessToken: null,
+  setUser: (user: User | null) => {
     set({ user: user });
   },
 }));

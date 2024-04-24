@@ -1,9 +1,9 @@
-import { Button } from "@repo/ui/components/ui/button";
+import AuthenticationPage from "./signin/page";
 
 export default function Page() {
   return (
     <main>
-      <Button>Click me</Button>
+      <AuthenticationPage />
     </main>
   );
 }
