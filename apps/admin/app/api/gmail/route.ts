@@ -38,6 +38,6 @@ export async function GET() {
     return Response.json(mails);
   } catch (error) {
     console.log(error);
-    return null;
+    return Response.json(null);
   }
 }

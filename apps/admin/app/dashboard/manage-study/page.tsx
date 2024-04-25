@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@ui/components/ui/card";
-import { OverviewChart } from "../../components/dashboard/charts/member-count-chart";
+import { NewUserChannelChart } from "../../components/dashboard/charts/new-user-channel-chart";
 import RecentMails from "../../components/dashboard/mail/recent-mails";
 export default function StudyManagementPage() {
   const totalStudies = 10;
@@ -66,7 +66,7 @@ export default function StudyManagementPage() {
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
               <CardContent className="pl-2">
-                <OverviewChart />
+                <NewUserChannelChart />
               </CardContent>
             </Card>
             <Card className="lg:col-span-3 col-span-4">
