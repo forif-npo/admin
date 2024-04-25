@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@ui/components/ui/card";
-import { OverviewChart } from "../../components/dashboard/charts/overview-chart";
+import { OverviewChart } from "../../components/dashboard/charts/member-count-chart";
 import RecentMails from "../../components/dashboard/mail/recent-mails";
 export default function StudyManagementPage() {
   const totalStudies = 10;

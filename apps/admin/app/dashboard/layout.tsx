@@ -1,11 +1,5 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/ui/components/ui/avatar";
-import { Button } from "@repo/ui/components/ui/button";
+import Footer from "@repo/ui/components/ui/footer";
 import { cookies } from "next/headers";
-import Image from "next/image";
 import { getUser } from "../actions/get-user.server";
 import { MainNav } from "../components/dashboard/main-nav";
 import { Search } from "../components/dashboard/search";
@@ -29,8 +23,7 @@ export default async function DashboardPageLayout({
     <div className="flex flex-col">
       <div className="border-b">
         <div className="flex h-16 items-center px-6">
-          <LogoNav />
-          <MainNav className="mx-6" />
+          <MainNav className="mx-2" />
           <div className="ml-auto flex items-center space-x-4">
             <Search />
             <UserNav user={user} />
@@ -39,25 +32,7 @@ export default async function DashboardPageLayout({
         </div>
       </div>
       <div className="flex-1 space-y-4 p-8 pt-6">{children}</div>
+      <Footer />
     </div>
-  );
-}
-
-function LogoNav() {
-  return (
-    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-      <Avatar>
-        <AvatarImage asChild src="/avatars/logo.png">
-          <Image
-            src={"/avatars/logo.png"}
-            alt="Avatar"
-            fill
-            className="w-8 h-8"
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
-        </AvatarImage>
-        <AvatarFallback>SC</AvatarFallback>
-      </Avatar>
-    </Button>
   );
 }

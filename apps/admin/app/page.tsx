@@ -1,4 +1,4 @@
-import AuthenticationPage from "./signin/page";
+import AuthenticationPage from "./sign-in/page";
 
 export default function Page() {
   return (

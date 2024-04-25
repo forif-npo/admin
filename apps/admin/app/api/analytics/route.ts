@@ -1,38 +1,51 @@
-import { google } from "googleapis";
-import credentails from "../googleapis-key.json";
-export async function GET() {
-  const JWT = google.auth.JWT;
-  const authClient = new JWT({
-    email: credentails.client_email,
-    key: credentails.private_key,
-    keyId: credentails.private_key_id,
-    scopes: [
-      "https://www.googleapis.com/auth/analytics",
-      "https://www.googleapis.com/auth/analytics.readonly",
-    ],
-  });
+import { BetaAnalyticsDataClient } from "@google-analytics/data";
+import { NextRequest } from "next/server";
+import credentials from "../googleapis-key.json";
+/**
+ *
+ * @param {string} startDate The inclusive start date for the query in the format YYYY-MM-DD. Cannot be after endDate. The format N daysAgo, yesterday, or today is also accepted, and in that case, the date is inferred based on the property's reporting time zone.
+ * @param {string | Date} endDate The inclusive end date for the query in the format YYYY-MM-DD. Cannot be before startDate. The format N daysAgo, yesterday, or today is also accepted, and in that case, the date is inferred based on the property's reporting time zone.
+ * @param {string} [metrics="browser"] Quantitative measurements. The metric Sessions is the total number of sessions. The metric Pages/Session is the average number of pages viewed per session. Default value is "browser".
+ * @param {string} dimensions Attributes of your data. For example, the dimension City indicates the city, for example, "Paris" or "New York", from which a session originates. The dimension Page indicates the URL of a page that is viewed.
+ * @returns
+ */
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
 
-  await authClient.authorize();
+  const startDate = searchParams.get("startDate");
+  const endDate = searchParams.get("endDate");
+  const metrics = searchParams.get("metrics");
+  const dimensions = searchParams.get("dimensions") || "Browser";
 
-  const analytics = google.analytics({
-    auth: authClient,
-    version: "v3",
+  const analyticsDataClient = new BetaAnalyticsDataClient({
+    credentials: {
+      client_id: credentials.client_id,
+      client_email: credentials.client_email,
+      private_key: credentials.private_key,
+      private_key_id: credentials.private_key_id,
+    },
   });
-  const data = await analytics.management.profiles.list({
-    accountId: "311069641",
-    webPropertyId: "~all",
-  });
-  console.log(data.data);
-
   try {
-    // const res = await analytics.data.ga.get({
-    //   ids: "ga:311069641",
-    //   dimensions: "ga:totalUsers",
-    //   metrics: "ga:totalUsers",
-    //   "start-date": "yesterday",
-    //   "end-date": "today",
-    // });
-    return Response.json(data.data);
+    const res = await analyticsDataClient.runReport({
+      property: `properties/${process.env.GOOGLE_ANALYTICS_PROPERTY_ID}`,
+      dateRanges: [
+        {
+          startDate: startDate,
+          endDate: endDate,
+        },
+      ],
+      dimensions: [
+        {
+          name: dimensions,
+        },
+      ],
+      metrics: [
+        {
+          name: metrics,
+        },
+      ],
+    });
+    return Response.json(res);
   } catch (error) {
     console.log(error);
     return Response.json(error);

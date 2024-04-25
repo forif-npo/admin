@@ -1,11 +1,11 @@
 import { google } from "googleapis";
-import credentails from "../googleapis-key.json";
+import credentials from "../googleapis-key.json";
 export async function GET() {
   const JWT = google.auth.JWT;
   const authClient = new JWT({
-    email: credentails.client_email,
-    key: credentails.private_key,
-    keyId: credentails.private_key_id,
+    email: credentials.client_email,
+    key: credentials.private_key,
+    keyId: credentials.private_key_id,
     subject: "contact@forif.org",
     scopes: ["https://mail.google.com/"],
   });

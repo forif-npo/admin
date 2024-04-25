@@ -9,14 +9,14 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
   const { pathname, origin } = req.nextUrl;
   //로그아웃 처리
-  if (pathname === "/signout") {
-    const response = NextResponse.redirect(new URL("/signin", req.url));
+  if (pathname === "/sign-out") {
+    const response = NextResponse.redirect(new URL("/sign-in", req.url));
     response.cookies.delete("access-token");
     response.cookies.delete("refresh-token");
     return response;
   }
   //로그인 페이지 처리
-  if (pathname === "/signin" || pathname === "/") {
+  if (pathname === "/sign-in" || pathname === "/") {
     if (accessToken) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
@@ -38,5 +38,5 @@ export async function middleware(req: NextRequest, res: NextResponse) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/signin", "/signout", "/"],
+  matcher: ["/dashboard", "/sign-in", "/sign-out", "/"],
 };

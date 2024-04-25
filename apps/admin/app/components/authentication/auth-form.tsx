@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { signin } from "../../actions/signin.server";
+import { signIn } from "../../actions/sign-in.server";
 import { useAuthStore } from "../../store/useAuthStore";
 import { Icons } from "../icons";
 
@@ -29,7 +29,7 @@ export default function AuthForm({ className, ...props }: UserAuthFormProps) {
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     // 로그인 시작
-    const { data } = await signin(values);
+    const { data } = await signIn(values);
     // 유저 정보 및 access token 전역 변수 저장
     setUser(data);
     setIsLoading(false);

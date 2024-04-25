@@ -50,7 +50,7 @@ export default function UserNav({ user }: { user: User | null }) {
           </DropdownMenuItem>
           <DropdownMenuItem
             className="text-destructive focus:text-destructive font-bold"
-            onClick={() => router.push("/signout")}
+            onClick={() => router.push("/sign-out")}
           >
             로그아웃
           </DropdownMenuItem>

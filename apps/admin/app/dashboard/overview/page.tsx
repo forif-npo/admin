@@ -11,13 +11,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@ui/components/ui/card";
-import { OverviewChart } from "../../components/dashboard/charts/overview-chart";
 import RecentMails from "../../components/dashboard/mail/recent-mails";
+import OverviewChartCard from "../../components/dashboard/overview/chart-card";
+import TodayPageView from "../../components/dashboard/overview/today-page-view";
+import TodayVisitors from "../../components/dashboard/overview/today-users";
+import TotalMembers from "../../components/dashboard/overview/total-members";
+
 export default function DashboardOverViewPage() {
-  const totalVisitors = 2023;
-  const pageView = 5554;
   const balance = 3189601;
-  const member = 284;
+
   return (
     <>
       <div className="flex items-center justify-between space-y-2">
@@ -34,36 +36,26 @@ export default function DashboardOverViewPage() {
             <Card id="visitor">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Visitors
+                  오늘 방문자 수
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  {totalVisitors.toLocaleString()}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
-                </p>
+                <TodayVisitors />
               </CardContent>
             </Card>
             <Card id="page-view">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Page View</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  오늘 페이지 뷰
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  {pageView.toLocaleString()}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
-                </p>
+                <TodayPageView />
               </CardContent>
             </Card>
             <Card id="account-balance">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Account Balance
-                </CardTitle>
+                <CardTitle className="text-sm font-medium">계좌 잔액</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
@@ -76,27 +68,15 @@ export default function DashboardOverViewPage() {
             </Card>
             <Card id="members">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Members</CardTitle>
+                <CardTitle className="text-sm font-medium">부원 수</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  {member.toLocaleString()}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
-                </p>
+                <TotalMembers />
               </CardContent>
             </Card>
           </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4">
-              <CardHeader>
-                <CardTitle>Overview</CardTitle>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <OverviewChart />
-              </CardContent>
-            </Card>
+            <OverviewChartCard />
             <Card className="lg:col-span-3 col-span-4">
               <CardHeader>
                 <CardTitle>최근 메일</CardTitle>

@@ -9,12 +9,14 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@google-analytics/data": "^4.5.0",
     "@google-cloud/local-auth": "2.1.0",
     "@hookform/resolvers": "^3.3.4",
     "@repo/ui": "workspace:*",
     "@tanstack/react-table": "^8.16.0",
     "@types/gapi": "^0.0.47",
     "date-fns": "^3.6.0",
+    "google-gax": "^4.3.2",
     "googleapis": "105",
     "jose": "^5.2.4",
     "jsonwebtoken": "^9.0.2",

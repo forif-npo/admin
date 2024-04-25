@@ -19,8 +19,6 @@ function btou(str: string) {
 }
 
 export function MailList({ mails }: MailListProps) {
-  console.log(mails);
-
   const pattern = /^(?:"?­?\s*)?(.+?)(?=\s*<.*>|"?\s*$)/;
 
   return (
