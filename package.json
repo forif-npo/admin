@@ -1,5 +1,5 @@
 {
-  "name": "turborepo-shadcn-ui",
+  "name": "forif-web",
   "version": "1.1.0",
   "private": true,
   "license": "MIT",
@@ -16,9 +16,9 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "prettier": "^3.1.1",
-    "turbo": "^1.13.2"
+    "turbo": "^1.13.3"
   },
-  "packageManager": "pnpm@9.0.2",
+  "packageManager": "pnpm@9.0.6",
   "engines": {
     "node": ">=18"
   }

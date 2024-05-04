@@ -1,33 +1,13 @@
 "use server";
 import { SignJWT } from "jose";
-import { cookies } from "next/headers";
 
 export async function refresh() {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
 
+  //access-token의 유효기간 : 30분
   const token = await new SignJWT({ sub: "2023063845", aud: "정보시스템학과" })
     .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("2m")
+    .setExpirationTime("30m")
     .sign(secret);
-  cookies().set("refresh-token", token);
   return token;
-  // const refreshToken = cookies().get("refresh-token");
-  // try {
-  //   const res = await fetch(process.env.SERVER_IP!, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       refreshToken,
-  //     }),
-  //   });
-  //   if (res.ok) {
-  //     const { accessToken } = await res.json();
-  //     return accessToken;
-  //   }
-  // } catch (err) {
-  //   console.error("Error refreshing access token:", err);
-  //   return null;
-  // }
 }

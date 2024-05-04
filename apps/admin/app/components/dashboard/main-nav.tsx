@@ -18,10 +18,7 @@ export function MainNav({
 
   return (
     <nav
-      className={cn(
-        "items-center space-x-4 lg:space-x-6 hidden md:flex",
-        className,
-      )}
+      className={cn("items-center space-x-4 lg:space-x-6 flex", className)}
       {...props}
     >
       {links.map((link, index) => (

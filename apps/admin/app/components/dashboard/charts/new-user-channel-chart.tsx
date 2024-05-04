@@ -34,7 +34,7 @@ export function NewUserChannelChart() {
     fetcher,
   );
 
-  if (error) return <div>ERROR OCCURED..</div>;
+  if (error) return <div>error occurred</div>;
   if (!data) return <PieChartSkeleton />;
 
   const userChartData: UserChartData[] | undefined =
@@ -76,7 +76,6 @@ const renderLabels = ({
   innerRadius,
   outerRadius,
   percent,
-  index,
 }: any) => {
   const RADIAN = Math.PI / 180;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
