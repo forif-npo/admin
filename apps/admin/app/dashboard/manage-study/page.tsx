@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@ui/components/ui/card";
 import StudyCalendar from "../../components/manage-study/study-calendar";
-import EditorWrapper from "../../components/manage-study/study-page-editor/wrapper";
+import EditorWrapper from "../../components/manage-study/study-editor/wrapper";
 export default async function StudyManagementPage() {
   async function getData() {
     "use server";

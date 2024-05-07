@@ -20,7 +20,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 interface StudySelectorProps {
   studies: Study[];
   selectedStudy: Study | undefined;
-  setSelectedStudy: Dispatch<SetStateAction<Study | undefined>>;
+  setSelectedStudy: Dispatch<SetStateAction<Study>>;
 }
 
 export function StudySelector({

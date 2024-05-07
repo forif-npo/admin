@@ -2,21 +2,22 @@ import { User } from "@repo/types/src/user";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/ui/card";
-import { Skeleton } from "@repo/ui/components/ui/skeleton";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@repo/ui/components/ui/tabs";
-import TodayPageView from "../../components/dashboard/overview/today-page-view";
-import TodayVisitors from "../../components/dashboard/overview/today-users";
+import RecentMails from "../../components/dashboard/mail/recent-mails";
 import TotalMembers from "../../components/dashboard/overview/total-members";
+import { DepartDistributionChart } from "../../components/manage-user/charts/depart-distribution-chart";
+import EditorWrapper from "../../components/manage-user/user-editor/wrapper";
 
-async function getData(): Promise<User[] | undefined> {
+async function getAllUsers(): Promise<User[] | undefined> {
   "use server";
   try {
     const res = await fetch(`${process.env.SERVER_IP}/user/allUsers`, {
@@ -36,7 +37,9 @@ async function getData(): Promise<User[] | undefined> {
 }
 
 export default async function UserManagementPage() {
+  const users = await getAllUsers();
   const balance = 3189601;
+
   return (
     <>
       <div className="flex items-center justify-between space-y-2">
@@ -45,29 +48,37 @@ export default async function UserManagementPage() {
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="analytics">Payments</TabsTrigger>
+          <TabsTrigger value="user-editor">Editor</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card id="visitor">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  오늘 방문자 수
-                </CardTitle>
+                <CardTitle className="text-sm font-medium">부원 수</CardTitle>
               </CardHeader>
               <CardContent>
-                <TodayVisitors />
+                <div className="text-2xl font-bold">
+                  <div className="text-2xl font-bold">200</div>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  +20.1% from last year
+                </p>
               </CardContent>
             </Card>
             <Card id="page-view">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  오늘 페이지 뷰
+                  홈페이지 회원 수(DB)
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <TodayPageView />
+                <div className="text-2xl font-bold">
+                  <div className="text-2xl font-bold">{users?.length}</div>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  +20.1% from last year
+                </p>
               </CardContent>
             </Card>
             <Card id="account-balance">
@@ -98,26 +109,22 @@ export default async function UserManagementPage() {
                 <CardTitle>학과 분포</CardTitle>
               </CardHeader>
               <CardContent className="pl-6">
-                <div className="relative">
-                  <div className="absolute w-auto h-auto left-[5px] top-[5px]">
-                    <ul className="text-left flex flex-col gap-2">
-                      <li className="flex flex-row gap-[10px] items-center">
-                        <Skeleton className="w-[14px] h-[14px] mr-1 bg-[#BCBCBD]" />
-                        <Skeleton className="w-20 h-5 mr-1 bg-[#BCBCBD]" />
-                      </li>
-                      <li className="flex flex-row gap-[10px] items-center">
-                        <Skeleton className="w-[14px] h-[14px] mr-1 bg-[#BCBCBD]" />
-                        <Skeleton className="w-20 h-5 mr-1 bg-[#BCBCBD]" />
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="pl-6 w-full h-full flex items-center justify-center">
-                    <Skeleton className="w-[320px] h-[320px] rounded-full" />
-                  </div>
-                </div>
+                <DepartDistributionChart users={users} />
+              </CardContent>
+            </Card>
+            <Card className="lg:col-span-3 col-span-4">
+              <CardHeader>
+                <CardTitle>최근 메일</CardTitle>
+                <CardDescription>최근 5개의 메일을 보여줍니다.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RecentMails />
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+        <TabsContent value="user-editor" className="space-y-4">
+          <EditorWrapper data={users} />
         </TabsContent>
       </Tabs>
     </>

@@ -6,7 +6,7 @@ import { EditStudyForm } from "./edit-study-form";
 import { StudySelector } from "./study-selector";
 
 export default function EditorWrapper({ data }: { data: Study[] }) {
-  const [selectedStudy, setSelectedStudy] = useState<Study | undefined>();
+  const [selectedStudy, setSelectedStudy] = useState<Study>(data[0]!);
 
   return (
     <div className="h-full flex-col md:flex">
@@ -32,7 +32,7 @@ export default function EditorWrapper({ data }: { data: Study[] }) {
       </div>
       <Separator />
       <div className="mt-4">
-        {selectedStudy && <EditStudyForm study={selectedStudy} />}
+        <EditStudyForm study={selectedStudy} />
       </div>
     </div>
   );

@@ -52,7 +52,7 @@ export function AddTagFormDialog({ study }: { study: Study }) {
     const updatedStudy = study;
     updatedStudy.tags = tags.items;
     const { data, error } = await updateStudy({ study: updatedStudy });
-    console.log(data, error);
+    console.log(data);
   }
 
   return (
